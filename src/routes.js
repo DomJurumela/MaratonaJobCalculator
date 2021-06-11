@@ -149,7 +149,11 @@ const Job = {
         },
 
         delete(req, res){
+            const jobId = req.params.id;
 
+            Job.data = Job.data.filter(job => Number(job.id) !== Number(jobId)); //vai tirar do filtro todos os valores iguais ao jobId
+
+            return res.redirect('/');
         }
     },
     services: {
