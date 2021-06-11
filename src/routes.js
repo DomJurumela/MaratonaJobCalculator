@@ -1,52 +1,10 @@
 const express = require('express'); // biblioteca para comandos do servidor
 const routes = express.Router(); //vai criar as rotas
+const ProfileController = require('./controllers/ProfileController');
 
-const views = __dirname + "/views/";//__dirname - diretorio atual = /src/
+//const views = __dirname + "/views/";//__dirname - diretorio atual = /src/
 
-const Profile = {
-    data: {
-        name: "João Jurema",
-        avatar: "https://avatars.githubusercontent.com/u/11191464?v=4",
-        "monthly-budget": 3000, //variáveis com traço requerem aspas
-        "hours-per-day": 8,
-        "days-per-week": 5,
-        "vacation-per-year": 8,
-        "value-hour": 75
-    },
 
-    controllers: {
-        index(req, res){
-            return res.render(views + "profile",{profile: Profile.data})
-        },
-
-        update(req, res){
-            //req.body para pegar os dados
-            const data = req.body;
-            
-            //definir quantas semanas tem num ano: 52 
-            const weeksPerYear = 52;
-            
-            //remover as semanas de férias do ano, para pegar quantas semanas em um mês
-            const weeksPerMonth = (weeksPerYear - data["vacation-per-year"] ) / 12;
-            
-            //quantas horas por semana estou trabalhando
-            const weekTotalHours = (data["hours-per-day"] * data["days-per-week"]);
-
-            //total de horas trabalhadas no mês
-            const monthlyTotalHours = weekTotalHours * weeksPerMonth;
-        
-            //qual será o valor da minha hora?
-            
-            const valueHour = data["monthly-budget"] / monthlyTotalHours;
-        
-            Profile.data = {
-                ...Profile.data,
-                ...req.body,
-                "value-hour" : valueHour
-            }
-        }
-    }
-}
 
 
 const Job = {
@@ -82,7 +40,7 @@ const Job = {
             }
         })
 
-        return res.render(views + 'index', { jobs: updatedJobs })
+        return res.render('index', { jobs: updatedJobs })
         },
         save(req, res) {    //create será para receber dados do formulário em EJS
             //req.body={ name: 'sdasdadasd', 'daily-hours': '0.6', 'total-hours': '6' }
@@ -101,7 +59,7 @@ const Job = {
             return res.redirect('/') //voltando à página inicial
         },
         create (req, res) {
-            return res.render(views + 'job');
+            return res.render('job');
         },
         show (req,res) {
 
@@ -116,7 +74,7 @@ const Job = {
             job.budget = Job.services.calculateBudget(job, Profile.data["value-hour"]);
 
 
-            return res.render(views + 'job-edit', { job });
+            return res.render('job-edit', { job });
         
         
         },
@@ -189,8 +147,8 @@ routes.post('/job', Job.controllers.save);
 routes.get('/job/:id', Job.controllers.show);
 routes.post('/job/:id', Job.controllers.update);
 routes.post('/job/delete/:id', Job.controllers.delete);
-routes.get('/profile', Profile.controllers.index);
-routes.post('/profile', Profile.controllers.update);
+routes.get('/profile', ProfileController.index);
+routes.post('/profile', ProfileController.update);
 
 
 

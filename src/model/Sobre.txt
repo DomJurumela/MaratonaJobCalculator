@@ -1,0 +1,1 @@
+A pasta model serve para armazenar dados e manter os gets e sets
