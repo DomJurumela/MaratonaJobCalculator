@@ -11,19 +11,18 @@ let data = [
         id: 2,
         "daily-hours": 3,
         "total-hours": 47,
-        created_at: Date.now(),            
+        created_at: Date.now(),
     }
 ];
 
 module.exports = {
-    get(){
+    get() {
         return data;
     },
-    update(newJob){
+    update(newJob) {
         data = newJob;
-        console.log(data);
     },
-    delete(id){
+    delete(id) {
         data = data.filter((job) => Number(job.id) !== Number(id)); //vai tirar do filtro todos os valores iguais ao jobId
     }
 }
