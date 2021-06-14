@@ -24,5 +24,8 @@ module.exports = {
     },
     delete(id) {
         data = data.filter((job) => Number(job.id) !== Number(id)); //vai tirar do filtro todos os valores iguais ao jobId
+    },
+    create(newJob){
+        data.push(newJob);
     }
 }

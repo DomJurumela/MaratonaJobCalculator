@@ -21,6 +21,8 @@ module.exports = {
     });
 
 
+
+
     return res.redirect("/"); //voltando à página inicial
   },
   create(req, res) {
