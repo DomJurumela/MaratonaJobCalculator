@@ -23,9 +23,6 @@ module.exports = {
     const profile = await Profile.get();
     const jobId = req.params.id; //o nome do parâmetro tem que ser o mesmo que na função routes.get
     const jobs = await Job.get();
-
-    console.log(jobs);
-
     const job = jobs.find((job) => Number(job.id) === Number(jobId)); //essa função vai buscar um job com o mesmo id que jobId
 
     if (!job) {
@@ -43,38 +40,22 @@ module.exports = {
   async update(req, res) {
     const profile = await Profile.get();
     const jobId = req.params.id; //o nome do parâmetro tem que ser o mesmo que na função routes.get
-    const jobs = await Job.get();
-    const job = jobs.find((job) => Number(job.id) === Number(jobId)); //essa função vai buscar um job com o mesmo id que jobId
-
-    if (!job) {
-      //id não encontrado
-      return res.send("Job not found");
-    }
 
     const updatedJob = {
-      ...job,
       name: req.body.name,
       "total-hours": req.body["total-hours"],
       "daily-hours": req.body["daily-hours"],
-      budget : JobUtils.calculateBudget(job, profile["value-hour"])
+      budget : JobUtils.calculateBudget(updatedJob, profile["value-hour"])
     };
 
-    const newJobs = jobs.map((job) => {
-      if (Number(job.id) === Number(jobId)) {
-        job = updatedJob;
-      }
-
-      return job;
-    });
-
-    Job.update(newJobs);
+    await Job.update(updatedJob, jobId);
 
     res.redirect("/");
   },
 
-  delete(req, res) {
+  async delete(req, res) {
     const jobId = req.params.id;
-    Job.delete(jobId);
+    await Job.delete(jobId);
     return res.redirect("/");
   },
 };

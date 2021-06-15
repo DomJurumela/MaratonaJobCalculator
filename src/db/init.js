@@ -30,7 +30,7 @@ CREATE TABLE jobs (
 
         //rodar DB
         await db.run(`INSERT INTO profile (name, avatar, monthly_budget, days_per_week, hours_per_day,vacation_per_year, value_hour)
-VALUES ("João", "https://avatars.githubusercontent.com/u/11191464?v=4", 3000, 8, 5, 8, 70);`);
+VALUES ("João", "https://avatars.githubusercontent.com/u/11191464?v=4", 3000, 5, 8, 7, 20);`);
 
         await db.run(`INSERT INTO jobs (name, daily_hours, total_hours, created_at)
 VALUES ("Pizzaria Guloso", 2, 1, 1623761850666);`);

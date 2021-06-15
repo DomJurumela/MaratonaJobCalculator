@@ -47,7 +47,7 @@ module.exports = {
         });
 
         //qtd de horas que quero trabalhar (Profile) - qtd de horas/dia de cada job em progresso:
-        const freeHours = profile["hours-per-day"] - jobTotalHours;
+        let freeHours = profile["hours-per-day"] - jobTotalHours;
         return res.render("index", { jobs: updatedJobs, profile: profile, statusCount: statusCount, freeHours: freeHours});
     }
 }

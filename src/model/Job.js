@@ -8,6 +8,9 @@ module.exports = {
         const jobs = await db.all(`SELECT * FROM jobs`);
 
         await db.close();
+
+        console.log(jobs);
+
         return jobs.map(job => ({
             id: job.id,
             name: job.name,
@@ -16,12 +19,30 @@ module.exports = {
             created_at: job.created_at
         }))
     },
-    update(newJob) {
-        data = newJob;
+
+     async update(updatedJob, jobId) {
+        const db = await Database();
+
+        await db.run(`UPDATE jobs SET
+        name = "${updatedJob.name}",
+        daily_hours = ${updatedJob["daily-hours"]},
+        total_hours = ${updatedJob["total-hours"]}
+        WHERE id = ${jobId}
+        `)
+
+        await db.close();
     },
-    delete(id) {
-        data = data.filter((job) => Number(job.id) !== Number(id)); //vai tirar do filtro todos os valores iguais ao jobId
+
+    async delete(id) {
+
+        const db = await Database();
+
+        await db.run(`DELETE FROM jobs WHERE id = ${id}`)
+
+        await db.close();
+
     },
+
     async create(newJob) {
         const db = await Database();
 
