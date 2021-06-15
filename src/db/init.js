@@ -29,13 +29,13 @@ CREATE TABLE jobs (
 )`);
 
         //rodar DB
-        await db.run(`INSERT INTO profile (name, avatar, monthly_budget, days_per_week, hours_per_day,vacation_per_year)
-VALUES ("João", "https://avatars.githubusercontent.com/u/11191464?v=4", 3000, 8, 5, 8);`);
+        await db.run(`INSERT INTO profile (name, avatar, monthly_budget, days_per_week, hours_per_day,vacation_per_year, value_hour)
+VALUES ("João", "https://avatars.githubusercontent.com/u/11191464?v=4", 3000, 8, 5, 8, 70);`);
 
         await db.run(`INSERT INTO jobs (name, daily_hours, total_hours, created_at)
-VALUES ("Pizzaria Guloso", 2, 1, 1617514376018);`);
+VALUES ("Pizzaria Guloso", 2, 1, 1623761850666);`);
         await db.run(`INSERT INTO jobs (name, daily_hours, total_hours, created_at)
-VALUES ("OneTwo Project", 3, 47, 1617514376018);`);
+VALUES ("OneTwo Project", 3, 47, 1623761850666);`);
 
 
         await db.close(); //fechar o banco de dados

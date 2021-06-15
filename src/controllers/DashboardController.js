@@ -4,7 +4,7 @@ const Profile = require('../model/Profile');
 
 module.exports = {
     async index(req, res) {
-        const jobs = Job.get();
+        const jobs = await Job.get();
         const profile = await Profile.get();
 
         let statusCount = {
@@ -20,6 +20,8 @@ module.exports = {
             //ajustes no job
             const remaining = JobUtils.remainingDays(job);
             const status = remaining <= 0 ? "done" : "progress"; //checa se o prazo acabou
+
+            
 
             //status = done
             //statusCount[done] += 1
